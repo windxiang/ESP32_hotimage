@@ -1,0 +1,223 @@
+menu "MyLibrary"
+
+	# --- SPI 功能配置
+	config ESP32_SPI_SUPPORT
+			bool "Support SPI"
+			default "n"
+			help
+				spi peripheral enable
+				
+				
+	menu "SPI Peripheral config"
+		depends on ESP32_SPI_SUPPORT
+
+		config ESP32_SPI_ST7789_LCD
+				bool "Support SPI ST7789 LCD"
+				default "n"
+				help
+					spi st7789 lcd enable
+					
+		# -- SPI LCD IO定义
+		menu "SPI LCD IO DEFINE"
+			depends on ESP32_SPI_ST7789_LCD
+			
+			config LCD_SPI_CLOCK
+				int "LCD spi clock define"
+				default 60000000
+
+			config LCD_IONUM_MOSI
+				int "LCD mosi io"
+				default 23
+				help
+					spi LCD master output slave input
+
+			config LCD_IONUM_MISO
+				int "LCD miso io"
+				default -1
+				help
+					spi LCD master input slave output 
+
+			config LCD_IONUM_CLK
+				int "LCD clk io"
+				default 18
+				help
+					spi LCD master clock
+
+			config LCD_IONUM_CS
+				int "LCD cs io"
+				default 19
+				help
+					spi LCD master select
+
+			config LCD_IONUM_DC
+				int "LCD DC io"
+				default 2
+				help
+					spi LCD io command data
+
+			config LCD_IONUM_RST
+				int "LCD RST io"
+				default 4
+				help
+					spi LCD io reset
+
+			choice LCD_SPI_HOST
+				prompt "SPI LCD HOST select"
+					config LCD_SPI
+						bool "SPI_SPI_HOST"
+
+					config LCD_HSPI
+						bool "HSPI_SPI2_HOST"
+
+					config LCD_VSPI
+						bool "VSPI_SPI3_HOST"
+			endchoice # LCD_SPI_HOST
+		endmenu # SPI LCD IO DEFINE
+		# -- SPI LCD IO定义
+
+		config LCD_SIMPLE_GUI
+				bool "Simple LCD graphics library"
+				default "n"
+				help
+					Simple LCD graphics library
+
+		config ESP32_SPI_SDCARD
+				bool "spi sdcard operation"
+				default "n"
+				help
+					spi sdcard operation
+				
+		# -- SPI IO定义
+		menu "SPI CARD IO DEFINE"
+			depends on ESP32_SPI_SDCARD
+			
+			config SDCARD_IONUM_MOSI
+				int "sdcard mosi io"
+				default 14
+				help
+					spi sdcard master output slave input
+					
+			config SDCARD_IONUM_MISO
+				int "sdcard miso io"
+				default 26
+				help
+					spi sdcard master input slave output 
+					
+			config SDCARD_IONUM_CLK
+				int "sdcard clk io"
+				default 27
+				help
+					spi sdcard master clock
+				
+			config SDCARD_IONUM_CS
+				int "sdcard cs io"
+				default 15
+				help
+					spi sdcard master select
+
+			config SDCARD_IONUM_CD
+				int "sdcard CD io"
+				default 25
+				help
+					spi sdcard io detection interrupt
+
+			choice SDCARD_SPI_HOST
+				prompt "SPI HOST select"
+					config SDCARD_SPI
+						bool "SPI_SPI_HOST"
+
+					config SDCARD_HSPI
+						bool "HSPI_SPI2_HOST"
+
+					config SDCARD_VSPI
+						bool "VSPI_SPI3_HOST"
+			endchoice # SDCARD_SPI_HOST
+		endmenu # SPI CARD IO DEFINE
+		# -- SPI IO定义
+	endmenu
+	# --- SPI 功能配置
+
+
+	# --- IIC 功能配置
+	config ESP32_IIC_SUPPORT
+		bool "Support IIC"
+			default "n"
+			help
+				iic peripheral enable
+	
+	menu "IIC Peripheral config"
+		depends on ESP32_IIC_SUPPORT
+
+		# -- IIC IO定义
+		menu "IIC IO DEFINE"		
+			config IIC_IONUM_SDA
+				int "iic sda io"
+				default 21
+				help
+					iic data io
+					
+			config IIC_IONUM_SCL
+				int "iic clock io"
+				default 22
+				help
+					iic clock io
+		endmenu # IIC IO DEFINE
+		# -- IIC IO定义
+		
+		config ESP32_IIC_CLOCK
+				int "iic clock define"
+				default 1000000
+				
+		config ESP32_IIC_NUM
+				int "iic peripheral num"
+				default 1
+
+		config ESP32_IIC_MLX90640
+				bool "Support iic mlx90640 camera"
+				default "n"
+				help
+					iic mlx90640 camera
+
+		config ESP32_IIC_SHT31
+				bool "Support iic SHT31"
+				default "n"
+				help
+					iic SHT31
+
+	endmenu # IIC Peripheral config
+	# --- IIC 功能配置
+	
+	
+	# --- webserver 功能配置
+	config ESP32_WIFI_SUPPORT
+		bool "Support Wifi"
+			default "n"
+			help
+				wifi enable
+
+	menu "Wifi Config"		
+		depends on ESP32_WIFI_SUPPORT
+
+		config WIFI_SSID
+			string "wifi ssid"
+			default ""
+			help
+				wifi ssid
+				
+		config WIFI_PASSWORD
+			string "wifi password"
+			default ""
+			help
+				wifi password
+				
+		config ESP32_WEBSERVER
+			depends on ESP32_WIFI_SUPPORT
+			bool "webserver"
+			default "n"
+			help
+				webserver
+
+	endmenu # Wifi Config
+	# --- webserver 功能配置
+
+endmenu

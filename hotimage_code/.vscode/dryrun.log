@@ -1,0 +1,13 @@
+make.exe --dry-run --always-make --keep-going --print-directory
+make.exe: Entering directory 'g:/EDA/ESP32_hotimage/hotimage_code'
+ 
+Makefile:8: /make/project.mk: No such file or directory
+
+make.exe: *** No rule to make target '/make/project.mk'.
+
+make.exe: Failed to remake makefile '/make/project.mk'.
+
+make.exe: Leaving directory 'g:/EDA/ESP32_hotimage/hotimage_code'
+ 
+make.exe: *** No targets specified and no makefile found.  Stop.
+
